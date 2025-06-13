@@ -1,0 +1,1 @@
+export const SERVER_URL = "https://payment-system-server.onrender.com"
