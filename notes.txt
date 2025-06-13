@@ -1,0 +1,7 @@
+            date,
+            closing_cash,
+            opening_cash,
+            counter_cash,
+            expense,
+            upi_cash,
+            card_cash
