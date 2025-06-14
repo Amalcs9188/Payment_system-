@@ -228,7 +228,7 @@ body {
 }
 
 .side_bar::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 .side_bar::-webkit-scrollbar-thumb {
@@ -238,11 +238,11 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: rgba(40, 87, 243, 0.397);
+  background-color: rgba(40, 87, 243, 0.268);
   border-radius: 10px;
   border: 2px solid rgba(40, 87, 243, 0.055);
 }
