@@ -199,7 +199,7 @@
         collapsible="icon"
         side="left"
         variant="floating"
-        className="w-sidebar border-border/40  backdrop-blur supports-[backdrop-filter]:bg-fill_bg "
+        className="w-(--sidebar-width) border-border/40  backdrop-blur supports-[backdrop-filter]:bg-fill_bg "
         {...props}>
         <SidebarHeader className="border-b border-border/40 px-4 py-4">
           {open && (

@@ -5,7 +5,7 @@ import { Card } from "./ui/card";
 
 const Navbar = () => {
   return (
-    <div className="w-[100%] md:w-[100%] lg:w-[83%] fixed top-0 right-0 z-50 max-h-12 bg-fill_bg p-2">
+    <div className=" max-h-12 bg-fill_bg p-2">
       <div className="flex w-full space-x-2  justify-between">
         <Card className=" rounded-full h-12 p-3 bg-background  text-2xl">
           <AiOutlineHome />

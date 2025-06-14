@@ -36,20 +36,29 @@ export default function RootLayout({
           geistSans.variable,
           geistMono.variable
         )}>
-       <div className=" flex h-screen w-full">
-         <QueryProvider>
-            <SidebarProvider>
-              <div>
+        <QueryProvider>
+          <SidebarProvider>
+            <div className="flex h-screen w-full">
+              {/* Sidebar & Navbar */}
+              <div >
                 <AppSidebar />
               </div>
-              <div className="flex-1 flex flex-col min-w-0 ">
-                <Navbar />
-                <div className=" mt-14">{children}</div>
-                <Toaster position="top-right" richColors={true} style={{ zIndex: 9999 } } />
+
+              {/* Main Content */}
+              <div className="flex-1 flex flex-col min-w-0">
+                <Navbar   />
+                <div className="mt-4 overflow-auto side_bar">{children}</div>
+
+                {/* Toast Notifications */}
+                <Toaster
+                  position="top-right"
+                  richColors={true}
+                  style={{ zIndex: 9999 }}
+                />
               </div>
-            </SidebarProvider>
-         </QueryProvider>
-       </div>
+            </div>
+          </SidebarProvider>
+        </QueryProvider>
       </body>
     </html>
   );
