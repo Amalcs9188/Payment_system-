@@ -145,7 +145,7 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
   const handleExportExcel = () => {
     const visibleColumns = table
       .getAllColumns()
-      .filter((col) => col.getIsVisible());
+      .filter((col) => col.getIsVisible())
 
     // Get headers from column definitions
     const headers = visibleColumns.map((column) => {
