@@ -29,6 +29,8 @@
     "framer-motion": "^12.16.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.513.0",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.15.2",
     "next": "15.3.3",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",

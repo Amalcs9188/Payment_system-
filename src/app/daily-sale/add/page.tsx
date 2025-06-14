@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import React from "react";
 import ComponentHeader from "@/components/ComponentHeader";
-import { formSchema } from "../../../../schema/dailyShema";
+import { formSchema } from "../../../schema/dailyShema";
 import { useDailyDataUpdate } from "../view/useDailyData";
 
 

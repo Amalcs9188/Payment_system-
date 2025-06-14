@@ -26,7 +26,7 @@ export const useDailyData = () => {
         {
             queryKey: ['dailyData'],
             queryFn: async () => {
-                const res = await api.get("http://localhost:3000/api/daily/get")
+                const res = await api.get("http://localhost:3000/api/daily")
                 return res.data
             }
         }
@@ -36,7 +36,7 @@ export const useDailyData = () => {
 export const useDailyDataUpdate = () => {
     return useMutation({
         mutationFn: async (data: DailySalesReport) => {
-            const res = await api.post("http://localhost:3000/api/daily/create", data);
+            const res = await api.post("http://localhost:3000/api/daily", data);
             return res.data;
         },
         onSuccess: (data) => {
@@ -54,7 +54,7 @@ export const useDailyDataEdit = () => {
    const  queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (data: DailyDataItem) => {
-            const res = await api.post("http://localhost:3000/api/daily/update", data, { params: { id: data._id } });
+            const res = await api.put("http://localhost:3000/api/daily", data, { params: { id: data._id } });
             return res.data;
         },
         onSuccess: (data) => {
@@ -70,7 +70,7 @@ export const useDailyDelete = () =>{
     const  queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (id: string) => {
-            const res = await api.get("http://localhost:3000/api/daily/delete", { params: { id } });
+            const res = await api.delete("http://localhost:3000/api/daily", { params: { id } });
             return res.data;
         },
         onSuccess: (data) => {
