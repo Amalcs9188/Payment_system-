@@ -238,7 +238,7 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
               <Link href={url ?? ""} >
                 <Button
                  variant={"outline"}
-                className="whitespace-nowrap rounded-2xl border-none shadow-none bg-white text-[#595959]   hover:text-white active:text-white"
+                className="whitespace-nowrap rounded-2xl border-none hover:bg-blue-600 shadow-none bg-white text-[#595959]   hover:text-white active:text-white"
                 onClick={openDialog}>
                   <Plus size={18}></Plus>
                   {ButtonTitle}
@@ -259,7 +259,7 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
             <Button
               onClick={handleExportExcel}
               variant="outline"
-              className="whitespace-nowrap rounded-2xl border-none shadow-none bg-white text-[#595959]  hover:text-white active:text-white">
+              className="whitespace-nowrap hover:bg-blue-600 rounded-2xl border-none shadow-none bg-white text-[#595959]  hover:text-white active:text-white">
               Export to Excel
             </Button>
 
@@ -267,9 +267,9 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className="rounded-2xl border-none shadow-none bg-white text-[#595959]  hover:text-white active:text-white">
+                  className="rounded-2xl border-none hover:bg-blue-600 shadow-none bg-white text-[#595959]  hover:text-white active:text-white">
                   Column Visibility
-                </Button>
+                </Button>   
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
