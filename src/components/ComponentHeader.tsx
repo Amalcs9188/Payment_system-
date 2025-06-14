@@ -20,7 +20,7 @@ const ComponentHeader = ({
           {title}
         </Badge>
       </CardTitle>
-      <CardDescription className="text-star pb-6 text-b">
+      <CardDescription className="text-star pt-1 pb-6 text-b">
         {description}
       </CardDescription>
     </div>
