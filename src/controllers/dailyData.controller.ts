@@ -54,7 +54,7 @@ export const getdailydata = async (req:NextApiRequest, res:NextApiResponse) => {
     console.log(req);
     
   try {
-    const dailyData = await DailyData.find({});
+    const dailyData = await DailyData.find({}).sort({ date: -1 });
     res
       .status(200)
       .json({ message: "Daily data retrieved successfully", data: dailyData });
