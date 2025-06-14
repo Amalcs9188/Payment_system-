@@ -133,7 +133,7 @@ const Page = () => {
   return (
     <div className=" w-[100%] flex flex-col items-start bg-fill_bg p-2">
       <ComponentHeader
-        color="text-black"
+        
         className="w-full gap-1 flex flex-col items-start p-3"
         title={"Add Daily Sales Report"}
         description={
