@@ -98,7 +98,7 @@ export default function DailySalePage() {
   const [calOpen, setCalOpen] = React.useState(false);
 
   return (
-    <div className="w-[100%] min-h-screen flex items-center bg-fill_bg justify-center p-3">
+    <div className="w-[100%] min-h-screen flex items-center bg-fill_bg justify-center px-3 py-1">
       <Card className="w-full p-6  border bg-background">
         <CardHeader>
           <ComponentHeader
