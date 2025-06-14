@@ -14,13 +14,13 @@ const ComponentHeader = ({
   color?: string;
 }) => {
   return (
-    <div className={className}>
-      <CardTitle className="text-center text-2xl  font-bold">
+    <div className={`${className} pt-4`}>
+      <CardTitle className="text-center text-2xl w-full gap-1 flex flex-col items-start  font-bold">
         <Badge variant={"outline"} className={`text-2xl ${color}`}>
           {title}
         </Badge>
       </CardTitle>
-      <CardDescription className="text-center text-b">
+      <CardDescription className="text-star pb-6 text-b">
         {description}
       </CardDescription>
     </div>

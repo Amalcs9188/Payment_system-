@@ -99,286 +99,289 @@ export default function DailySalePage() {
 
   return (
     <div className="w-[100%] min-h-screen flex items-center bg-fill_bg justify-center px-3 py-1">
-      <Card className="w-full p-6  border bg-background">
-        <CardHeader>
-          <ComponentHeader
-            title="Cafe Daily Sale"
-            description="Record your daily sales and cash management details"
-          />
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-            <Badge
-              className=" cursor-pointer"
-              onClick={() => setCalOpen(!calOpen)}
-              variant={"default"}>
-              {date ? date.toLocaleDateString() : "Select Date"}
-            </Badge>
-            {calOpen && (
-              <div className=" relative bg-background">
-                <div className="rounded-lg border absolute top-0 left-2  bg-white shadow-lg">
-                  <span
-                    onClick={() => setCalOpen(false)}
-                    className="absolute top-2 cursor-pointer right-2">
-                    <CgClose />
-                  </span>
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={(selectedDate) => {
-                      if (selectedDate) {
-                        setDate(selectedDate);
-                        setCalOpen(false);
-                      }
-                    }}
-                    className="mt-4"
-                  />
+       <div className="w-full ">
+         <ComponentHeader
+              title="Cafe Daily Sale"
+              description="Record your daily sales and cash management details"
+            />
+        <Card className="w-full p-6  border bg-background">
+          <CardHeader>
+           
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+              <Badge
+                className=" cursor-pointer"
+                onClick={() => setCalOpen(!calOpen)}
+                variant={"default"}>
+                {date ? date.toLocaleDateString() : "Select Date"}
+              </Badge>
+              {calOpen && (
+                <div className=" relative bg-background">
+                  <div className="rounded-lg border absolute top-0 left-2  bg-white shadow-lg">
+                    <span
+                      onClick={() => setCalOpen(false)}
+                      className="absolute top-2 cursor-pointer right-2">
+                      <CgClose />
+                    </span>
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={(selectedDate) => {
+                        if (selectedDate) {
+                          setDate(selectedDate);
+                          setCalOpen(false);
+                        }
+                      }}
+                      className="mt-4"
+                    />
+                  </div>
+                </div>
+              )}
+              {/* Cash Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-6 w-1 rounded-full bg-primary" />
+                  <h3 className="text-lg font-semibold tracking-tight">
+                    Cash Details
+                  </h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="openingCash">Opening Cash</Label>
+                    <Input
+                      id="openingCash"
+                      type="number"
+                      {...register("openingCash", { valueAsNumber: true })}
+                    />
+                    {errors.openingCash && (
+                      <p className="text-sm text-red-500">
+                        {errors.openingCash.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="counterCash">Counter Cash</Label>
+                    <Input
+                      id="counterCash"
+                      type="number"
+                      {...register("counterCash", { valueAsNumber: true })}
+                    />
+                    {errors.counterCash && (
+                      <p className="text-sm text-red-500">
+                        {errors.counterCash.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="expense">Expense</Label>
+                    <Input
+                      id="expense"
+                      type="number"
+                      {...register("expense", { valueAsNumber: true })}
+                    />
+                    {errors.expense && (
+                      <p className="text-sm text-red-500">
+                        {errors.expense.message}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            )}
-            {/* Cash Section */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-6 w-1 rounded-full bg-primary" />
-                <h3 className="text-lg font-semibold tracking-tight">
-                  Cash Details
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="openingCash">Opening Cash</Label>
-                  <Input
-                    id="openingCash"
-                    type="number"
-                    {...register("openingCash", { valueAsNumber: true })}
-                  />
-                  {errors.openingCash && (
-                    <p className="text-sm text-red-500">
-                      {errors.openingCash.message}
-                    </p>
-                  )}
+              {/* Payment Methods Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-6 w-1 rounded-full bg-primary" />
+                  <h3 className="text-lg font-semibold tracking-tight">
+                    Payment Methods
+                  </h3>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="counterCash">Counter Cash</Label>
-                  <Input
-                    id="counterCash"
-                    type="number"
-                    {...register("counterCash", { valueAsNumber: true })}
-                  />
-                  {errors.counterCash && (
-                    <p className="text-sm text-red-500">
-                      {errors.counterCash.message}
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="expense">Expense</Label>
-                  <Input
-                    id="expense"
-                    type="number"
-                    {...register("expense", { valueAsNumber: true })}
-                  />
-                  {errors.expense && (
-                    <p className="text-sm text-red-500">
-                      {errors.expense.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-            {/* Payment Methods Section */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-6 w-1 rounded-full bg-primary" />
-                <h3 className="text-lg font-semibold tracking-tight">
-                  Payment Methods
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="upiCash">UPI Cash</Label>
-                  <Input
-                    id="upiCash"
-                    type="number"
-                    {...register("upiCash", { valueAsNumber: true })}
-                  />
-                  {errors.upiCash && (
-                    <p className="text-sm text-red-500">
-                      {errors.upiCash.message}
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="cardCash">Card Cash</Label>
-                  <Input
-                    id="cardCash"
-                    type="number"
-                    {...register("cardCash", { valueAsNumber: true })}
-                  />
-                  {errors.cardCash && (
-                    <p className="text-sm text-red-500">
-                      {errors.cardCash.message}
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="other">Other</Label>
-                  <Input
-                    id="other"
-                    type="number"
-                    {...register("other", { valueAsNumber: true })}
-                  />
-                  {errors.other && (
-                    <p className="text-sm text-red-500">
-                      {errors.other.message}
-                    </p>
-                  )}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="upiCash">UPI Cash</Label>
+                    <Input
+                      id="upiCash"
+                      type="number"
+                      {...register("upiCash", { valueAsNumber: true })}
+                    />
+                    {errors.upiCash && (
+                      <p className="text-sm text-red-500">
+                        {errors.upiCash.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="cardCash">Card Cash</Label>
+                    <Input
+                      id="cardCash"
+                      type="number"
+                      {...register("cardCash", { valueAsNumber: true })}
+                    />
+                    {errors.cardCash && (
+                      <p className="text-sm text-red-500">
+                        {errors.cardCash.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="other">Other</Label>
+                    <Input
+                      id="other"
+                      type="number"
+                      {...register("other", { valueAsNumber: true })}
+                    />
+                    {errors.other && (
+                      <p className="text-sm text-red-500">
+                        {errors.other.message}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* Notes Section */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-6 w-1 rounded-full bg-primary" />
-                <h3 className="text-lg font-semibold tracking-tight">
-                  Cash Notes
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="note500">₹500 Notes</Label>
-                  <Input
-                    id="note500"
-                    type="number"
-                    {...register("note500", { valueAsNumber: true })}
-                  />
-                  {errors.note500 && (
-                    <p className="text-sm text-red-500">
-                      {errors.note500.message}
-                    </p>
-                  )}
+              {/* Notes Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-6 w-1 rounded-full bg-primary" />
+                  <h3 className="text-lg font-semibold tracking-tight">
+                    Cash Notes
+                  </h3>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="note200">₹200 Notes</Label>
-                  <Input
-                    id="note200"
-                    type="number"
-                    {...register("note200", { valueAsNumber: true })}
-                  />
-                  {errors.note200 && (
-                    <p className="text-sm text-red-500">
-                      {errors.note200.message}
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="note100">₹100 Notes</Label>
-                  <Input
-                    id="note100"
-                    type="number"
-                    {...register("note100", { valueAsNumber: true })}
-                  />
-                  {errors.note100 && (
-                    <p className="text-sm text-red-500">
-                      {errors.note100.message}
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="note50">₹50 Notes</Label>
-                  <Input
-                    id="note50"
-                    type="number"
-                    {...register("note50", { valueAsNumber: true })}
-                  />
-                  {errors.note50 && (
-                    <p className="text-sm text-red-500">
-                      {errors.note50.message}
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="note20">₹20 Notes</Label>
-                  <Input
-                    id="note20"
-                    type="number"
-                    {...register("note20", { valueAsNumber: true })}
-                  />
-                  {errors.note20 && (
-                    <p className="text-sm text-red-500">
-                      {errors.note20.message}
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="note10">₹10 Notes</Label>
-                  <Input
-                    id="note10"
-                    type="number"
-                    {...register("note10", { valueAsNumber: true })}
-                  />
-                  {errors.note10 && (
-                    <p className="text-sm text-red-500">
-                      {errors.note10.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className=" mt-4">
-              <Button
-                variant={"outline"}
-                className=" border-2 w-full border-primary bg-blue-700/10 text-primary hover:bg-primary hover:text-primary-foreground "
-                type="submit">
-                Submit Report
-              </Button>
-            </div>
-            {/* Summary Section */}
-            <div className="w-full space-y-4 rounded-lg border p-4 bg-blue-700/10 mt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-6 w-1 rounded-full bg-primary" />
-                <h3 className="text-lg font-semibold tracking-tight">
-                  Summary
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-                <div className="space-y-2 p-3 rounded-lg bg-background/70">
-                  <p className="text-sm text-muted-foreground">Total Cash</p>
-                  <p className="text-2xl font-bold">₹{totalCash}</p>
-                </div>
-                <div className="space-y-2 p-3 rounded-lg bg-background/70">
-                  <p className="text-sm text-muted-foreground">Total Notes</p>
-                  <p className="text-2xl font-bold">₹{totalNotes}</p>
-                </div>
-                <div className="space-y-2 p-3 rounded-lg bg-background/70">
-                  <p className="text-sm text-muted-foreground">Short/Excess</p>
-                  <p
-                    className={`text-2xl font-bold ${
-                      short < 0 ? "text-red-500" : "text-green-600"
-                    }`}>
-                    ₹{short}
-                  </p>
-                </div>
-                <div className="space-y-2 p-3 rounded-lg bg-background/70">
-                  <p className="text-sm text-muted-foreground">Total Sale</p>
-                  <p className="text-2xl font-bold">₹{totalSale}</p>
-                </div>
-                <div className="space-y-2 p-3 rounded-lg bg-background/70">
-                  <p className="text-sm text-muted-foreground">
-                    Total Cash Online
-                  </p>
-                  <p className="text-2xl font-bold">₹{cardCash + upiCash}</p>
-                </div>
-                <div className="space-y-2 p-3 rounded-lg bg-background/70">
-                  <p className="text-sm text-muted-foreground">Cash Online</p>
-                  <p className="text-2xl font-bold">₹{0}</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="note500">₹500 Notes</Label>
+                    <Input
+                      id="note500"
+                      type="number"
+                      {...register("note500", { valueAsNumber: true })}
+                    />
+                    {errors.note500 && (
+                      <p className="text-sm text-red-500">
+                        {errors.note500.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="note200">₹200 Notes</Label>
+                    <Input
+                      id="note200"
+                      type="number"
+                      {...register("note200", { valueAsNumber: true })}
+                    />
+                    {errors.note200 && (
+                      <p className="text-sm text-red-500">
+                        {errors.note200.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="note100">₹100 Notes</Label>
+                    <Input
+                      id="note100"
+                      type="number"
+                      {...register("note100", { valueAsNumber: true })}
+                    />
+                    {errors.note100 && (
+                      <p className="text-sm text-red-500">
+                        {errors.note100.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="note50">₹50 Notes</Label>
+                    <Input
+                      id="note50"
+                      type="number"
+                      {...register("note50", { valueAsNumber: true })}
+                    />
+                    {errors.note50 && (
+                      <p className="text-sm text-red-500">
+                        {errors.note50.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="note20">₹20 Notes</Label>
+                    <Input
+                      id="note20"
+                      type="number"
+                      {...register("note20", { valueAsNumber: true })}
+                    />
+                    {errors.note20 && (
+                      <p className="text-sm text-red-500">
+                        {errors.note20.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="note10">₹10 Notes</Label>
+                    <Input
+                      id="note10"
+                      type="number"
+                      {...register("note10", { valueAsNumber: true })}
+                    />
+                    {errors.note10 && (
+                      <p className="text-sm text-red-500">
+                        {errors.note10.message}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            <CardFooter className="flex justify-end px-0 pt-6"></CardFooter>
-          </form>
-        </CardContent>
-      </Card>
+              <div className=" mt-4">
+                <Button
+                  variant={"outline"}
+                  className=" border-2 w-full border-primary bg-blue-700/10 text-primary hover:bg-primary hover:text-primary-foreground "
+                  type="submit">
+                  Submit Report
+                </Button>
+              </div>
+              {/* Summary Section */}
+              <div className="w-full space-y-4 rounded-lg border p-4 bg-blue-700/10 mt-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-6 w-1 rounded-full bg-primary" />
+                  <h3 className="text-lg font-semibold tracking-tight">
+                    Summary
+                  </h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                  <div className="space-y-2 p-3 rounded-lg bg-background/70">
+                    <p className="text-sm text-muted-foreground">Total Cash</p>
+                    <p className="text-2xl font-bold">₹{totalCash}</p>
+                  </div>
+                  <div className="space-y-2 p-3 rounded-lg bg-background/70">
+                    <p className="text-sm text-muted-foreground">Total Notes</p>
+                    <p className="text-2xl font-bold">₹{totalNotes}</p>
+                  </div>
+                  <div className="space-y-2 p-3 rounded-lg bg-background/70">
+                    <p className="text-sm text-muted-foreground">Short/Excess</p>
+                    <p
+                      className={`text-2xl font-bold ${
+                        short < 0 ? "text-red-500" : "text-green-600"
+                      }`}>
+                      ₹{short}
+                    </p>
+                  </div>
+                  <div className="space-y-2 p-3 rounded-lg bg-background/70">
+                    <p className="text-sm text-muted-foreground">Total Sale</p>
+                    <p className="text-2xl font-bold">₹{totalSale}</p>
+                  </div>
+                  <div className="space-y-2 p-3 rounded-lg bg-background/70">
+                    <p className="text-sm text-muted-foreground">
+                      Total Cash Online
+                    </p>
+                    <p className="text-2xl font-bold">₹{cardCash + upiCash}</p>
+                  </div>
+                  <div className="space-y-2 p-3 rounded-lg bg-background/70">
+                    <p className="text-sm text-muted-foreground">Cash Online</p>
+                    <p className="text-2xl font-bold">₹{0}</p>
+                  </div>
+                </div>
+              </div>
+              <CardFooter className="flex justify-end px-0 pt-6"></CardFooter>
+            </form>
+          </CardContent>
+        </Card>
+       </div>
     </div>
   );
 }
