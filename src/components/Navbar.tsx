@@ -11,7 +11,7 @@ const Navbar = () => {
           <AiOutlineHome />
         </Card>
         <Card className=" w-full p-2 h-12  bg-background flex justify-center items-center text-gray-500">
-          <h1 className="text-2xl font-bold">CafePilot</h1>
+          <h1 className="text-2xl text-gray-400 font-bold"> CafePilot</h1>
         </Card>
         <Card className=" rounded-full h-12 p-3 bg-background text-2xl">
           <BiUser />
