@@ -1,1 +1,1 @@
-export const SERVER_URL = "https://payment-system-server.onrender.com"
+export const SERVER_URL = "https://payment-system-lemon.vercel.app" || "http://localhost:3000";

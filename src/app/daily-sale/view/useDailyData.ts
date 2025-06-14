@@ -2,6 +2,7 @@ import { api } from "@/lib/axios"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner";
 import { DailyDataItem } from "./page";
+import { SERVER_URL } from './../../../../server_url';
 
 
 
@@ -26,7 +27,7 @@ export const useDailyData = () => {
         {
             queryKey: ['dailyData'],
             queryFn: async () => {
-                const res = await api.get("http://localhost:3000/api/daily")
+                const res = await api.get(`${SERVER_URL}/api/daily`)
                 return res.data
             }
         }
@@ -36,7 +37,7 @@ export const useDailyData = () => {
 export const useDailyDataUpdate = () => {
     return useMutation({
         mutationFn: async (data: DailySalesReport) => {
-            const res = await api.post("http://localhost:3000/api/daily", data);
+            const res = await api.post(`${SERVER_URL}/api/daily`, data);
             return res.data;
         },
         onSuccess: (data) => {
@@ -54,7 +55,7 @@ export const useDailyDataEdit = () => {
    const  queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (data: DailyDataItem) => {
-            const res = await api.put("http://localhost:3000/api/daily", data, { params: { id: data._id } });
+            const res = await api.put(`${SERVER_URL}/api/daily`, data, { params: { id: data._id } });
             return res.data;
         },
         onSuccess: (data) => {
@@ -70,7 +71,7 @@ export const useDailyDelete = () =>{
     const  queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (id: string) => {
-            const res = await api.delete("http://localhost:3000/api/daily", { params: { id } });
+            const res = await api.delete(`${SERVER_URL}/api/daily`, { params: { id } });
             return res.data;
         },
         onSuccess: (data) => {
