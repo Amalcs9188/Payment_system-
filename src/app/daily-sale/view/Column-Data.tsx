@@ -120,6 +120,11 @@ export const Data_column = (
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
+    cell: ({ row }) => {
+      const value = row.getValue("short_excess");
+      const numValue = typeof value === "number" ? value : Number(value);
+      return <div className={`${numValue < 0 ? "text-red-500" : "text-green-500"}`}>{String(value)}</div>;
+    }
   },
   {
     accessorKey: "Actions",
