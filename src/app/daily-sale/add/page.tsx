@@ -79,7 +79,7 @@ export default function DailySalePage() {
   const onSubmit = (data: FormValues) => {
     console.log(data)
     addData({
-      date: (date instanceof Date ? date.toLocaleDateString() : date) ?? newDate,
+      date: (date instanceof Date ? date.toLocaleDateString('en-GB') : date) ?? newDate,
       closing_cash: totalNotes,
       opening_cash: data.openingCash,
       counter_cash: data.counterCash,
@@ -114,7 +114,7 @@ export default function DailySalePage() {
                 className=" cursor-pointer"
                 onClick={() => setCalOpen(!calOpen)}
                 variant={"default"}>
-                {date ? date.toLocaleDateString() : "Select Date"}
+                {date ? date.toLocaleDateString('en-GB') : "Select Date"}
               </Badge>
               {calOpen && (
                 <div className=" relative bg-background">
@@ -129,7 +129,8 @@ export default function DailySalePage() {
                       selected={date}
                       onSelect={(selectedDate) => {
                         if (selectedDate) {
-                          setDate(selectedDate);
+                          
+                          setDate( selectedDate );
                           setCalOpen(false);
                         }
                       }}

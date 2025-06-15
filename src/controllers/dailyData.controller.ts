@@ -91,7 +91,6 @@ export const updatedailydata = async (req: NextApiRequest, res: NextApiResponse)
       (updateData.upi_cash || 0) +
       (updateData.card_cash || 0) +
       (updateData.counter_cash || 0);
-
     const short_excess = (updateData.closing_cash || 0) - total_cash;
 
     // Update with computed values
