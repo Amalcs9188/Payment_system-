@@ -1,4 +1,5 @@
 "use client";
+import { BiLoaderCircle } from "react-icons/bi"; 
 import { CgClose } from "react-icons/cg";
 
 import { z } from "zod";
@@ -73,7 +74,7 @@ export default function DailySalePage() {
   const short = totalNotes - totalCash;
   const totalSale = counterCash + upiCash + cardCash + other;
 
-  const { mutate: addData  } = useDailyDataUpdate();
+  const { mutate: addData ,isPending } = useDailyDataUpdate();
 
   const newDate = new Date().toLocaleDateString();
   const onSubmit = (data: FormValues) => {
@@ -98,7 +99,7 @@ export default function DailySalePage() {
   const [calOpen, setCalOpen] = React.useState(false);
 
   return (
-    <div className="w-[100%] min-h-screen flex items-center bg-fill_bg justify-center px-3 py-1">
+    <div className="w-[100%] min-h-screen flex items-center bg-fill_bg justify-center p-2 px-4 py-1">
        <div className="w-full ">
          <ComponentHeader
               title="Cafe Daily Sale"
@@ -331,9 +332,16 @@ export default function DailySalePage() {
               <div className=" mt-4">
                 <Button
                   variant={"outline"}
+                  disabled={isPending}
                   className=" border-2 w-full border-primary bg-blue-700/10 text-primary hover:bg-primary hover:text-primary-foreground "
                   type="submit">
-                  Submit Report
+                  {isPending ? (
+                    <>
+                      Saving... <BiLoaderCircle className="animate-spin"/>
+                    </>
+                  ) : (
+                    "Save Report"
+                  )}
                 </Button>
               </div>
               {/* Summary Section */}
