@@ -333,11 +333,11 @@ export default function DailySalePage() {
                 <Button
                   variant={"outline"}
                   disabled={isPending}
-                  className=" border-2 w-full border-primary bg-blue-700/10 text-primary hover:bg-primary hover:text-primary-foreground "
+                  className=" border-2 w-full border-primary bg-blue-700/10 text-2xl text-primary hover:bg-primary hover:text-primary-foreground "
                   type="submit">
                   {isPending ? (
                     <>
-                      Saving... <BiLoaderCircle className="animate-spin"/>
+                      Saving... <BiLoaderCircle className="animate-spin text-xl"/>
                     </>
                   ) : (
                     "Save Report"
