@@ -73,6 +73,9 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
     return undefined;
   };
 
+
+
+  
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [rowSelection, setRowSelection] = React.useState({});
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -134,10 +137,11 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
     },
   });
 
+
   // Calculate the range of rows shown on the current page
   const pageIndex = table.getState().pagination.pageIndex;
   const pageSize = table.getState().pagination.pageSize;
-  const totalRows = table.getFilteredRowModel().rows.length;
+  const totalRows = table.getRowModel().rows.length;
 
   const startRow = pageIndex * pageSize + 1;
   const endRow = Math.min((pageIndex + 1) * pageSize, totalRows);
@@ -253,6 +257,7 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
                 onChange={(event) => setGlobalFilter(event.target.value)}
                 className="pl-10 rounded-2xl border-none shadow-none bg-white placeholder:text-[#8C8C8C]"
               />
+              
             </div>
           </div>
           <div className="flex items-center gap-2">

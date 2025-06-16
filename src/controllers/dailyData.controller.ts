@@ -5,7 +5,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 // Create a new daily record
 
-export const dailyRoutespost = async (req:NextApiRequest, res:NextApiResponse) => {
+export const dailyRoutespost = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const {
       date,
@@ -42,22 +42,22 @@ export const dailyRoutespost = async (req:NextApiRequest, res:NextApiResponse) =
     console.error("Error creating daily record:", error);
     res
       .status(500)
-      .json({ 
-        message: "Internal server error", 
-        error: error instanceof Error ? error.message : String(error), 
-        
+      .json({
+        message: "Internal server error",
+        error: error instanceof Error ? error.message : String(error),
+
       });
   }
 };
 
-export const getdailydata = async (req:NextApiRequest, res:NextApiResponse) => {
-    console.log(req);
-    
+export const getdailydata = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log(req);
+
   try {
     const dailyData = await DailyData.find({}).sort({ date: -1 });
     res
       .status(200)
-      .json({ message: "Daily data retrieved successfully", data: dailyData });
+      .json({ message: "Daily data retrieved successfully", result: dailyData });
   } catch (error) {
     console.error("Error retrieving daily data:", error);
     res
@@ -129,11 +129,11 @@ export const updatedailydata = async (req: NextApiRequest, res: NextApiResponse)
 };
 
 
-export const deletedailydata = async (req:NextApiRequest, res:NextApiResponse) => {
+export const deletedailydata = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { id } = req.query;
     console.log(id);
-    
+
     if (!id) {
       return res
         .status(400)

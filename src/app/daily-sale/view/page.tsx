@@ -47,6 +47,8 @@ const formSchema = z.object({
 
 const Page = () => {
   const { data: dailyData, isLoading } = useDailyData();
+  console.log(dailyData);
+  
 
   const [open, setOpen] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
@@ -222,14 +224,14 @@ const Page = () => {
         </DialogContent>
       </Dialog>
 
-      <DataTable
+      {<DataTable
       url={'/daily-sale/add'}
         EnableDialog={true}
         ButtonTitle={"Add Daily payment"}
         columns={columns}
-        data={dailyData?.data || []}
+        data={dailyData?.result || []}
         title="Daily Sales"
-      />
+      />}
     </div>
   );
 };

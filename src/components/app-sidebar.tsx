@@ -72,6 +72,10 @@
             title: "View Sale Report",
             url: "/daily-sale/view",
           },
+          {
+            title: "Expenses",
+            url: "/daily-sale/expenses",
+          },
         ],
       },
       {
