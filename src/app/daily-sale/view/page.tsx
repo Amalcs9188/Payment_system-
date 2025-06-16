@@ -86,7 +86,7 @@ const Page = () => {
     setOpen(true);
     set_id(_id);
     setIsEdit(action === "edit");
-    const toBeEdited = dailyData?.data?.find(function (item: DailyDataItem) {
+    const toBeEdited = dailyData?.result?.find(function (item: DailyDataItem) {
       return item._id === _id;
     });
     reset({
@@ -155,6 +155,7 @@ const Page = () => {
                 <Label htmlFor="date"><Badge variant="destructive">{watch("date")}</Badge></Label>
                 <Input className="cursor-not-allowed hidden placeholder:text-black" disabled id="date" {...register("date")} />
                 <p>{errors.date?.message}</p>
+                
               </div>
             <div className="grid grid-cols-2 gap-3">
               

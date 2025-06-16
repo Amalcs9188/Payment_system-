@@ -20,15 +20,20 @@ import * as XLSX from "xlsx";
 import { Button } from "./ui/button";
 
 import { Input } from "./ui/input";
-import {DropdownMenuCheckboxItem,
+import {
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuTrigger, DropdownMenu } from "./ui/dropdown-menu";
-import { Table ,
+  DropdownMenuTrigger,
+  DropdownMenu,
+} from "./ui/dropdown-menu";
+import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,} from "./ui/table";
+  TableRow,
+} from "./ui/table";
 import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
@@ -39,7 +44,7 @@ interface DataTableProps<TData, TValue> {
   ButtonTitle?: string;
   openDialog?: () => void;
   defaultInVisibleColumns?: string[];
-  url?:string
+  url?: string;
 }
 
 export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
@@ -50,7 +55,7 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
   ButtonTitle,
   defaultInVisibleColumns,
   openDialog,
-  url
+  url,
 }: DataTableProps<TData, TValue>) {
   console.log("Dialog", EnableDialog);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -73,9 +78,6 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
     return undefined;
   };
 
-
-
-  
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [rowSelection, setRowSelection] = React.useState({});
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -137,7 +139,6 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
     },
   });
 
-
   // Calculate the range of rows shown on the current page
   const pageIndex = table.getState().pagination.pageIndex;
   const pageSize = table.getState().pagination.pageSize;
@@ -149,7 +150,7 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
   const handleExportExcel = () => {
     const visibleColumns = table
       .getAllColumns()
-      .filter((col) => col.getIsVisible())
+      .filter((col) => col.getIsVisible());
 
     // Get headers from column definitions
     const headers = visibleColumns.map((column) => {
@@ -235,15 +236,15 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
 
   return (
     <div className="rounded-xl w-full bg-fill_bg  px-2 pb-2">
-        <div className="rounded-xl py-3 w-full  flex items-center bg-fill_bg justify-center">
+      <div className="rounded-xl py-3 w-full  flex items-center bg-fill_bg justify-center">
         <div className="flex w-full items-center mx-[2px] justify-between">
           <div className="relative flex gap-2 items-center w-1/2">
             {EnableDialog && (
-              <Link href={url ?? ""} >
+              <Link href={url ?? ""}>
                 <Button
-                 variant={"outline"}
-                className="whitespace-nowrap rounded-2xl border-none hover:bg-blue-600 shadow-none bg-white text-[#595959]   hover:text-white active:text-white"
-                onClick={openDialog}>
+                  variant={"outline"}
+                  className="whitespace-nowrap rounded-2xl border-none hover:bg-blue-600 shadow-none bg-white text-[#595959]   hover:text-white active:text-white"
+                  onClick={openDialog}>
                   <Plus size={18}></Plus>
                   {ButtonTitle}
                 </Button>
@@ -257,7 +258,6 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
                 onChange={(event) => setGlobalFilter(event.target.value)}
                 className="pl-10 rounded-2xl border-none shadow-none bg-white placeholder:text-[#8C8C8C]"
               />
-              
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -274,7 +274,7 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
                   variant="outline"
                   className="rounded-2xl border-none hover:bg-blue-600 shadow-none bg-white text-[#595959]  hover:text-white active:text-white">
                   Column Visibility
-                </Button>   
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
@@ -313,7 +313,9 @@ export function DataTable<TData, TValue, title, EnableDialog, ButtonTitle>({
       </div>
 
       <div className="rounded-xl p-2 tableBorder    bg-white">
-        <div className="text-black w-full text-m font-semibold mb-4">{title}</div>
+        <div className="text-black w-full text-m font-semibold mb-4">
+          {title}
+        </div>
         <div className="flex-1">
           <div className="rounded-md tableBorder border w-full">
             <div className="overflow-x-auto">
