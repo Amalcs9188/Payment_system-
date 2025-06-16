@@ -333,17 +333,17 @@ export default function DailySalePage() {
                 <Button
                   variant={"outline"}
                   disabled={isPending}
-                  className=" border-2 w-full border-primary bg-blue-700/10 text-2xl text-primary hover:bg-primary hover:text-primary-foreground "
+                  className=" border-2 w-full border-primary bg-blue-700/10 text-primary hover:bg-primary hover:text-primary-foreground "
                   type="submit">
                   {isPending ? (
                     <>
-                      Saving... <BiLoaderCircle className="animate-spin text-xl"/>
+                      Saving... <BiLoaderCircle className="animate-spin "/>
                     </>
                   ) : (
                     "Save Report"
                   )}
                 </Button>
-              </div>
+              </div>z
               {/* Summary Section */}
               <div className="w-full space-y-4 rounded-lg border p-4 bg-blue-700/10 mt-6">
                 <div className="flex items-center gap-2 mb-2">

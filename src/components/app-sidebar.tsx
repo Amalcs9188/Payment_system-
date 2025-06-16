@@ -205,8 +205,8 @@
           {open && (
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
-                <Coffee className="h-6 w-6 text-primary" />
-                <h2 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent whitespace-nowrap">
+                <Coffee className="h-6 w-6 " />
+                <h2 className="text-2xl font-bold tracking-tight text-gray-700 whitespace-nowrap">
                   CafePilot
                 </h2>
               </div>
