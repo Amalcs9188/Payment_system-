@@ -175,6 +175,7 @@ const Page = () => {
           onSuccess: () => {
             form.reset(defaultValues);
             setOpen(false);
+            setToBeEdited(null);
           },
         }
       );
@@ -189,6 +190,7 @@ const Page = () => {
         onSuccess: () => {
           form.reset(defaultValues);
           setOpen(false);
+          setToBeEdited(null);
         },
       }
     );
