@@ -182,7 +182,7 @@ const Page = () => {
     }
     expenceEdit(
       {
-        date: date ? date.toISOString() : "",
+        date: toBeedited?.date ? new Date(toBeedited.date).toISOString() : "",
         id: toBeedited?._id,
         ...data,
       },
