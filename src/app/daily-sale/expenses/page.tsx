@@ -180,7 +180,7 @@ const Page = () => {
         }
       );
     }
-    setDate(toBeedited?.date ? new Date(toBeedited.date) : new Date());
+   
     expenceEdit(
       
       {
@@ -193,6 +193,7 @@ const Page = () => {
           form.reset(defaultValues);
           setOpen(false);
           setToBeEdited(null);
+          setDate(new Date());
         },
       }
     );
@@ -205,6 +206,7 @@ const Page = () => {
     );
     console.log(toBeEditedd);
     setToBeEdited(toBeEditedd);
+    setDate(toBeEditedd?.date ? new Date(toBeEditedd.date) : new Date());
 
     console.log(id);
     setOpen(true);
