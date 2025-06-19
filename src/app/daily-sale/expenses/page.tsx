@@ -363,7 +363,7 @@ const Page = () => {
         </Dialog>
 
         <Accordion
-          type="multiple"
+          type="single"
           className="w-full bg-background p-3 rounded-2xl">
           {groupedData &&
             Object.entries(groupedData).map(([date, expenses]) => (
