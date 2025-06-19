@@ -180,7 +180,9 @@ const Page = () => {
         }
       );
     }
+    setDate(toBeedited?.date ? new Date(toBeedited.date) : new Date());
     expenceEdit(
+      
       {
         date: toBeedited?.date ? new Date(toBeedited.date).toISOString() : "",
         id: toBeedited?._id,
