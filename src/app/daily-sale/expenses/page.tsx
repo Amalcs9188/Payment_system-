@@ -2,13 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import { Plus, Search } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar"; // Make sure this is your date picker component
+import { Calendar } from "@/components/ui/calendar";
 import * as XLSX from "xlsx";
 import { format } from "date-fns";
 
 import ComponentHeader from "@/components/ComponentHeader";
 import { DataTableDemo, IExpense } from "@/components/table_";
-import { useExpense, useExpensePost } from "@/hooks/use-expense";
+import {
+  useExpense,
+  useExpenseDelete,
+  useExpenseEdit,
+  useExpensePost,
+} from "@/hooks/use-expense";
 import {
   Accordion,
   AccordionContent,
@@ -32,6 +37,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Badge } from "@/components/ui/badge";
 import { CgClose } from "react-icons/cg";
+import { ExpenseColumns } from "@/components/expense_daywise_Columns";
 
 type Grouped = Record<string, IExpense[]>;
 
@@ -107,16 +113,18 @@ const Page = () => {
   const { data: expenseData, isLoading } = useExpense();
   console.log(expenseData);
   const [open, setOpen] = React.useState<boolean>(false);
-    const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [toBeedited, setToBeEdited] = useState<IExpense | null>(null);
 
+  const defaultValues = {
+    category: "",
+    description: "",
+    amount: 0,
+  };
   const form = useForm<ExpenseshemaZod>({
     resolver: zodResolver(expenceShemaZod),
-    defaultValues: {
-      category: "",
-      description: "",
-      amount: 0,
-    },
-  })
+    defaultValues: defaultValues,
+  });
 
   const [progress, setProgress] = useState(10);
   const [globalFilter, setGlobalFilter] = useState<string>("");
@@ -153,22 +161,62 @@ const Page = () => {
     return () => clearInterval(timer);
   }, [isLoading]);
 
-
-  const {mutate:expencePost} = useExpensePost()
-  const onSubmit = (data: ExpenseshemaZod) =>{
+  const { mutate: expencePost } = useExpensePost();
+  const { mutate: expenceEdit } = useExpenseEdit();
+  const onSubmit = (data: ExpenseshemaZod) => {
     console.log(data);
-    expencePost({
-      date: date ? date.toISOString() : "",
-      ...data
-    },{
-      onSuccess: ()=>{
-        form.reset();
-        setOpen(false);
+    if (!toBeedited) {
+      expencePost(
+        {
+          date: date ? date.toISOString() : "",
+          ...data,
+        },
+        {
+          onSuccess: () => {
+            form.reset(defaultValues);
+            setOpen(false);
+          },
+        }
+      );
+    }
+    expenceEdit(
+      {
+        date: date ? date.toISOString() : "",
+        id: toBeedited?._id,
+        ...data,
+      },
+      {
+        onSuccess: () => {
+          form.reset(defaultValues);
+          setOpen(false);
+        },
       }
-    })
-    
+    );
+  };
+  // Define stub handlers with proper types
 
-  }
+  const handleEdit = (id: string) => {
+    const toBeEditedd = expenseData?.data?.find(
+      (item: IExpense) => item._id === id
+    );
+    console.log(toBeEditedd);
+    setToBeEdited(toBeEditedd);
+
+    console.log(id);
+    setOpen(true);
+    form.reset({
+      category: toBeEditedd.category ?? "",
+      description: toBeEditedd.description ?? "",
+      amount: toBeEditedd.amount ?? 0,
+    });
+  };
+
+  const ExpenseDelete = useExpenseDelete();
+  const handleDelete = (id: string) => {
+    console.log(id);
+    ExpenseDelete.mutate(id);
+  };
+  const columns = ExpenseColumns({ handleEdit, handleDelete });
 
   if (isLoading) {
     return (
@@ -236,11 +284,11 @@ const Page = () => {
             </DialogHeader>
 
             <form onSubmit={form.handleSubmit(onSubmit)}>
-               <Badge
+              <Badge
                 className=" cursor-pointer"
                 onClick={() => setCalOpen(!calOpen)}
                 variant={"default"}>
-                {date ? date.toLocaleDateString('en-GB') : "Select Date"}
+                {date ? date.toLocaleDateString("en-GB") : "Select Date"}
               </Badge>
               {calOpen && (
                 <div className=" relative bg-background">
@@ -254,7 +302,10 @@ const Page = () => {
                       mode="single"
                       selected={date}
                       onSelect={(selectedDate: Date | undefined) => {
-                        if (selectedDate instanceof Date && !isNaN(selectedDate.getTime())) {
+                        if (
+                          selectedDate instanceof Date &&
+                          !isNaN(selectedDate.getTime())
+                        ) {
                           setDate(selectedDate);
                           setCalOpen(false);
                         }
@@ -265,32 +316,42 @@ const Page = () => {
                 </div>
               )}
 
-           <div className="grid grid-cols-2 gap-3">
-             <div className="grid gap-3">
-                <Label htmlFor="category">Category</Label>
-                <Input
-                  id="category"
-                  {...form.register("category")}
-                />
-                <p>{form.formState.errors.category?.message}</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="grid gap-2">
+                  <Label htmlFor="category">Category</Label>
+                  <Input
+                    placeholder="Category"
+                    id="category"
+                    {...(form.register("category") || "")}
+                  />
+                  <p className=" text-red-600 font-light text-sm">
+                    {form.formState.errors.category?.message}
+                  </p>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Input
+                    placeholder="Description"
+                    id="description"
+                    {...(form.register("description") || "")}
+                  />
+                  <p className=" text-red-600 font-light text-sm">
+                    {form.formState.errors.description?.message}
+                  </p>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="amount">Amount</Label>
+                  <Input
+                    id="amount"
+                    type="number"
+                    placeholder="Amount"
+                    {...(form.register("amount") || "")}
+                  />
+                  <p className=" text-red-600 font-light text-sm">
+                    {form.formState.errors.amount?.message}
+                  </p>
+                </div>
               </div>
-             <div className="grid gap-3">
-                <Label htmlFor="description">Description</Label>
-                <Input
-                  id="description"
-                  {...form.register("description")}
-                />
-                <p>{form.formState.errors.description?.message}</p>
-              </div>
-             <div className="grid gap-3">
-                <Label htmlFor="amount">Amount</Label>
-                <Input
-                  id="amount"
-                  {...form.register("amount")}
-                />
-                <p>{form.formState.errors.amount?.message}</p>
-              </div>
-           </div>
 
               <DialogFooter>
                 <Button type="submit">Save changes</Button>
@@ -318,7 +379,7 @@ const Page = () => {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-4 text-balance">
-                  <DataTableDemo data={expenses} />
+                  <DataTableDemo columns={columns} data={expenses} />
                 </AccordionContent>
               </AccordionItem>
             ))}

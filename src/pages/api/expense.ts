@@ -8,8 +8,8 @@ import {
 } from '@/controllers/expense.controller';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  await connectDB(); // ensure MongoDB is connected
-
+  await connectDB(); 
+  
   switch (req.method) {
     case 'GET':
       return getExpenses(req, res);

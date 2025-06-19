@@ -30,7 +30,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ExpenseColumns } from "./expense_daywise_Columns";
+
+
+
+import type { ColumnDef } from "@tanstack/react-table";
 
 export interface IExpense {
   _id?: string;
@@ -40,7 +43,7 @@ export interface IExpense {
   amount: number;
 }
 
-export function DataTableDemo({ data }: { data: IExpense[] }) {
+export function DataTableDemo<TData, TValue>({ data, columns }: { data: TData[]; columns: ColumnDef<TData, TValue>[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -51,7 +54,7 @@ export function DataTableDemo({ data }: { data: IExpense[] }) {
 
   const table = useReactTable({
     data,
-    columns: ExpenseColumns,
+    columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -132,7 +135,7 @@ export function DataTableDemo({ data }: { data: IExpense[] }) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   className="cursor-pointer w-full" 
-                  key={row.original._id}
+                  key={row.id}
                   data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell className="capitalize ps-5" key={cell.id}>

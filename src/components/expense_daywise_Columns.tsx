@@ -18,8 +18,14 @@ export type Payment = {
   category: string;
   description?: string;
   amount: number;
+  
 }
-export const ExpenseColumns: ColumnDef<Payment>[] = [
+type ExpenseColumnsProps = {
+  handleEdit: (id: string) => void;
+  handleDelete: (id: string) => void;
+};
+
+export const ExpenseColumns = ({ handleEdit, handleDelete }: ExpenseColumnsProps): ColumnDef<Payment>[] => [
  
   {
     accessorKey: "category",
@@ -82,13 +88,14 @@ export const ExpenseColumns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment._id ?? "")}
+              onClick={() => handleEdit(payment._id as string)}
             >
-              Copy payment ID
+              Update
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handleDelete(payment._id as string)}
+            >Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
