@@ -165,7 +165,7 @@ const Page = () => {
   const { mutate: expenceEdit } = useExpenseEdit();
   const onSubmit = (data: ExpenseshemaZod) => {
     console.log(data);
-    if (!toBeedited) {
+    if (!toBeedited || toBeedited === null) {
       expencePost(
         {
           date: date ? date.toISOString() : "",
