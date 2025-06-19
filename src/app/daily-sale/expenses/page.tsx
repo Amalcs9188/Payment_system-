@@ -364,6 +364,7 @@ const Page = () => {
 
         <Accordion
           type="single"
+          collapsible
           className="w-full bg-background p-3 rounded-2xl">
           {groupedData &&
             Object.entries(groupedData).map(([date, expenses]) => (
