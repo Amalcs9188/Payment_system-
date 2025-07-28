@@ -65,11 +65,11 @@
         isActive: true,
         items: [
           {
-            title: "Add Sale Report",
+            title: "Add Sales Report",
             url: "/daily-sale/add",
           },
           {
-            title: "View Sale Report",
+            title: "View Sales Report",
             url: "/daily-sale/view",
           },
           {
