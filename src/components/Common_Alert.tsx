@@ -16,11 +16,6 @@ type CommonAlertDialogProps = {
   deleteData: () => void;
 }
 export function CommonAlertDialog({open,setOpen,deleteData}: CommonAlertDialogProps) {
-
-  const handeleDelete=() =>{
-    deleteData()
-  }
-
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent>
@@ -32,7 +27,7 @@ export function CommonAlertDialog({open,setOpen,deleteData}: CommonAlertDialogPr
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={() => {setOpen(false)}}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => {handeleDelete()}}>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={() => {deleteData()}}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
