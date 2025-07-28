@@ -2,7 +2,7 @@ import { api } from "@/lib/axios"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner";
 import { DailyDataItem } from "./page";
-import { SERVER_URL } from './../../../../server_url';
+// import { SERVER_URL } from './../../../../server_url';
 
 
 
@@ -19,25 +19,21 @@ export interface DailySalesReport {
   upi_cash: number;       // UPI payments
   card_cash: number;      // Card payments
 }
-
-
-
 export const useDailyData = () => {
     return useQuery(
         {
             queryKey: ['dailyData'],
             queryFn: async () => {
-                const res = await api.get(`${SERVER_URL}/api/daily`)
+                const res = await api.get(`/api/daily`)
                 return res.data
             }
         }
     )
 }
-
 export const useDailyDataUpdate = () => {
     return useMutation({
         mutationFn: async (data: DailySalesReport) => {
-            const res = await api.post(`${SERVER_URL}/api/daily`, data);
+            const res = await api.post(`/api/daily`, data);
             return res.data;
         },
         onSuccess: (data) => {
@@ -50,12 +46,11 @@ export const useDailyDataUpdate = () => {
 
     })
 }
-
 export const useDailyDataEdit = () => {
    const  queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (data: DailyDataItem) => {
-            const res = await api.put(`${SERVER_URL}/api/daily`, data, { params: { id: data._id } });
+            const res = await api.put(`/api/daily`, data, { params: { id: data._id } });
             return res.data;
         },
         onSuccess: (data) => {
@@ -71,7 +66,7 @@ export const useDailyDelete = () =>{
     const  queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (id: string) => {
-            const res = await api.delete(`${SERVER_URL}/api/daily`, { params: { id } });
+            const res = await api.delete(`/api/daily`, { params: { id } });
             return res.data;
         },
         onSuccess: (data) => {
