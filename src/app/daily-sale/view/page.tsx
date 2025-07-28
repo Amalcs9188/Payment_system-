@@ -22,6 +22,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Badge } from "@/components/ui/badge";
+import { CommonAlertDialog } from './../../../components/Common_Alert';
 
 export type DailyDataItem = {
   _id: string;
@@ -48,8 +49,8 @@ const formSchema = z.object({
 const Page = () => {
   const { data: dailyData, isLoading } = useDailyData();
   console.log(dailyData);
-  
-
+  const [dailogueOpen, setdailogueOpen] = useState<boolean>(false);
+  const [delId, setdelId] = useState<string>();
   const [open, setOpen] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
   const [_id, set_id] = useState<string>("");
@@ -102,10 +103,18 @@ const Page = () => {
 
   const { mutate: toBeDeleted } = useDailyDelete();
   const handleDelete = (_id: string) => {
-    console.log(_id);
-    toBeDeleted(_id);
-  };
+    setdailogueOpen(true);
+    setdelId(_id);
 
+  };
+ const Delete = () => {
+    toBeDeleted(delId??"",{
+      onSuccess: () => {
+        setdelId('');
+        setdailogueOpen(false);
+      }
+    });
+ }
   const { mutate } = useDailyDataEdit();
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     mutate(
@@ -233,6 +242,7 @@ const Page = () => {
         data={dailyData?.result || []}
         title="Daily Sales"
       />}
+      <CommonAlertDialog  deleteData={Delete} open={dailogueOpen} setOpen={setdailogueOpen}/>
     </div>
   );
 };
