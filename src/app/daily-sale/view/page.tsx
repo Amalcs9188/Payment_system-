@@ -105,7 +105,6 @@ const Page = () => {
   const handleDelete = (_id: string) => {
     setdailogueOpen(true);
     setdelId(_id);
-
   };
  const Delete = () => {
     toBeDeleted(delId??"",{

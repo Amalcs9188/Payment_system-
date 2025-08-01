@@ -66,7 +66,9 @@ export const useDailyDelete = () =>{
     const  queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (id: string) => {
-            const res = await api.delete(`/api/daily`, { params: { id } });
+            const res = await
+            
+             api.delete(`/api/daily`, { params: { id } });
             return res.data;
         },
         onSuccess: (data) => {

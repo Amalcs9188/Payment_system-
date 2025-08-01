@@ -1,5 +1,5 @@
 "use client";
-import { BiLoaderCircle } from "react-icons/bi"; 
+import { BiLoaderCircle } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
 
 import { z } from "zod";
@@ -20,7 +20,6 @@ import React from "react";
 import ComponentHeader from "@/components/ComponentHeader";
 import { formSchema } from "../../../schema/dailyShema";
 import { useDailyDataUpdate } from "../view/useDailyData";
-
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -63,7 +62,7 @@ export default function DailySalePage() {
   const note20 = watch("note20") || 0;
   const note10 = watch("note10") || 0;
 
-  const totalCash =( openingCash + counterCash) - (expense ?? 0);
+  const totalCash = openingCash + counterCash - (expense ?? 0);
   const totalNotes =
     note500 * 500 +
     note200 * 200 +
@@ -74,48 +73,49 @@ export default function DailySalePage() {
   const short = totalNotes - totalCash;
   const totalSale = counterCash + upiCash + cardCash + other;
 
-  const { mutate: addData ,isPending } = useDailyDataUpdate();
+  const { mutate: addData, isPending } = useDailyDataUpdate();
 
   const newDate = new Date().toLocaleDateString();
   const onSubmit = (data: FormValues) => {
-    console.log(data)
-    addData({
-      date: (date instanceof Date ? date.toLocaleDateString('en-GB') : date) ?? newDate,
-      closing_cash: totalNotes,
-      opening_cash: data.openingCash,
-      counter_cash: data.counterCash,
-      expense: data.expense??0,
-      upi_cash: data.upiCash,
-      card_cash: data.cardCash,
-    },{
-      onSuccess: ()=>{
-        reset();
-        
+    console.log(data);
+    addData(
+      {
+        date:
+          (date instanceof Date ? date.toLocaleDateString("en-GB") : date) ??
+          newDate,
+        closing_cash: totalNotes,
+        opening_cash: data.openingCash,
+        counter_cash: data.counterCash,
+        expense: data.expense ?? 0,
+        upi_cash: data.upiCash,
+        card_cash: data.cardCash,
+      },
+      {
+        onSuccess: () => {
+          reset();
+        },
       }
-    }
-    )
+    );
   };
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   const [calOpen, setCalOpen] = React.useState(false);
 
   return (
     <div className="w-[100%] min-h-screen flex items-center bg-fill_bg justify-center p-2 px-4 py-1">
-       <div className="w-full ">
-         <ComponentHeader
-              title="Cafe Daily Sale"
-              description="Record your daily sales and cash management details"
-            />
+      <div className="w-full ">
+        <ComponentHeader
+          title="Cafe Daily Sale"
+          description="Record your daily sales and cash management details"
+        />
         <Card className="w-full p-6  border bg-background">
-          <CardHeader>
-           
-          </CardHeader>
+          <CardHeader></CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
               <Badge
                 className=" cursor-pointer"
                 onClick={() => setCalOpen(!calOpen)}
                 variant={"default"}>
-                {date ? date.toLocaleDateString('en-GB') : "Select Date"}
+                {date ? date.toLocaleDateString("en-GB") : "Select Date"}
               </Badge>
               {calOpen && (
                 <div className=" relative bg-background">
@@ -130,8 +130,7 @@ export default function DailySalePage() {
                       selected={date}
                       onSelect={(selectedDate) => {
                         if (selectedDate) {
-                          
-                          setDate( selectedDate );
+                          setDate(selectedDate);
                           setCalOpen(false);
                         }
                       }}
@@ -250,12 +249,19 @@ export default function DailySalePage() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="note500">₹500 Notes</Label>
-                    <Input
-                      id="note500"
-                      type="number"
-                      {...register("note500", { valueAsNumber: true })}
-                    />
+                    <div className="flex justify-between pe-1">
+                      <Label htmlFor="note500">₹500 Notes</Label>
+                    </div>
+                    <div className="relative">
+                      <Badge className="absolute top-0 right-0 overflow-hidden h-full min-w-12 ">
+                        {note500 * 500}
+                      </Badge>
+                      <Input
+                        id="note500"
+                        type="number"
+                        {...register("note500", { valueAsNumber: true })}
+                      />
+                    </div>
                     {errors.note500 && (
                       <p className="text-sm text-red-500">
                         {errors.note500.message}
@@ -263,12 +269,19 @@ export default function DailySalePage() {
                     )}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="note200">₹200 Notes</Label>
-                    <Input
-                      id="note200"
-                      type="number"
-                      {...register("note200", { valueAsNumber: true })}
-                    />
+                    <div className="flex justify-between pe-1">
+                      <Label htmlFor="note200">₹200 Notes</Label>
+                    </div>
+                    <div className="relative">
+                      <Badge className="absolute top-0 right-0 overflow-hidden h-full min-w-12 ">
+                        {note200 * 200}
+                      </Badge>
+                      <Input
+                        id="note200"
+                        type="number"
+                        {...register("note200", { valueAsNumber: true })}
+                      />
+                    </div>
                     {errors.note200 && (
                       <p className="text-sm text-red-500">
                         {errors.note200.message}
@@ -276,12 +289,20 @@ export default function DailySalePage() {
                     )}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="note100">₹100 Notes</Label>
-                    <Input
-                      id="note100"
-                      type="number"
-                      {...register("note100", { valueAsNumber: true })}
-                    />
+                    <div className="flex justify-between pe-1">
+                      <Label htmlFor="note100">₹100 Notes</Label>
+                    </div>
+                    <div className="relative">
+                      <Input
+                        className=" relative"
+                        id="note100"
+                        type="number"
+                        {...register("note100", { valueAsNumber: true })}
+                      />
+                      <Badge className="absolute top-0 right-0 overflow-hidden h-full min-w-12 ">
+                        {note100 * 100}
+                      </Badge>
+                    </div>
                     {errors.note100 && (
                       <p className="text-sm text-red-500">
                         {errors.note100.message}
@@ -289,12 +310,19 @@ export default function DailySalePage() {
                     )}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="note50">₹50 Notes</Label>
-                    <Input
-                      id="note50"
-                      type="number"
-                      {...register("note50", { valueAsNumber: true })}
-                    />
+                    <div className="flex justify-between pe-1">
+                      <Label htmlFor="note50">₹50 Notes</Label>
+                    </div>
+                    <div className="relative">
+                      <Badge className="absolute top-0 right-0 overflow-hidden h-full min-w-12 ">
+                        {note50 * 50}
+                      </Badge>
+                      <Input
+                        id="note50"
+                        type="number"
+                        {...register("note50", { valueAsNumber: true })}
+                      />
+                    </div>
                     {errors.note50 && (
                       <p className="text-sm text-red-500">
                         {errors.note50.message}
@@ -302,12 +330,19 @@ export default function DailySalePage() {
                     )}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="note20">₹20 Notes</Label>
-                    <Input
-                      id="note20"
-                      type="number"
-                      {...register("note20", { valueAsNumber: true })}
-                    />
+                    <div className="flex justify-between pe-1">
+                      <Label htmlFor="note20">₹20 Notes</Label>
+                    </div>
+                    <div className="relative">
+                      <Badge className="absolute top-0 right-0 overflow-hidden h-full min-w-12 ">
+                        {note20 * 20}
+                      </Badge>
+                      <Input
+                        id="note20"
+                        type="number"
+                        {...register("note20", { valueAsNumber: true })}
+                      />
+                    </div>
                     {errors.note20 && (
                       <p className="text-sm text-red-500">
                         {errors.note20.message}
@@ -315,12 +350,19 @@ export default function DailySalePage() {
                     )}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="note10">₹10 Notes</Label>
-                    <Input
-                      id="note10"
-                      type="number"
-                      {...register("note10", { valueAsNumber: true })}
-                    />
+                    <div className="flex justify-between pe-1">
+                      <Label htmlFor="note10">₹10 Notes</Label>
+                    </div>
+                    <div className="relative">
+                      <Badge className="absolute top-0 right-0 overflow-hidden h-full min-w-12 ">
+                        {note10 * 10}
+                      </Badge>
+                      <Input
+                        id="note10"
+                        type="number"
+                        {...register("note10", { valueAsNumber: true })}
+                      />
+                    </div>
                     {errors.note10 && (
                       <p className="text-sm text-red-500">
                         {errors.note10.message}
@@ -337,14 +379,14 @@ export default function DailySalePage() {
                   type="submit">
                   {isPending ? (
                     <>
-                      Saving... <BiLoaderCircle className="animate-spin "/>
+                      Saving... <BiLoaderCircle className="animate-spin " />
                     </>
                   ) : (
                     "Save Report"
                   )}
                 </Button>
-              </div>z
-              {/* Summary Section */}
+              </div>
+              z{/* Summary Section */}
               <div className="w-full space-y-4 rounded-lg border p-4 bg-blue-700/10 mt-6">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="h-6 w-1 rounded-full bg-primary" />
@@ -362,7 +404,9 @@ export default function DailySalePage() {
                     <p className="text-2xl font-bold">₹{totalNotes}</p>
                   </div>
                   <div className="space-y-2 p-3 rounded-lg bg-background/70">
-                    <p className="text-sm text-muted-foreground">Short/Excess</p>
+                    <p className="text-sm text-muted-foreground">
+                      Short/Excess
+                    </p>
                     <p
                       className={`text-2xl font-bold ${
                         short < 0 ? "text-red-500" : "text-green-600"
@@ -390,7 +434,7 @@ export default function DailySalePage() {
             </form>
           </CardContent>
         </Card>
-       </div>
+      </div>
     </div>
   );
 }

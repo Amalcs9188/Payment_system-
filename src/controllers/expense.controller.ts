@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Expense } from '@/schema/expenseSchema';
 
-
 // POST: Create a new expense
 export const createExpense = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -15,7 +14,6 @@ export const createExpense = async (req: NextApiRequest, res: NextApiResponse) =
     res.status(500).json({ error: 'Failed to create expense record' });
   }
 };
-
 // GET: Get all expenses
 export const getExpenses = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(req);
@@ -41,6 +39,7 @@ export const updateExpense = async (req: NextApiRequest, res: NextApiResponse) =
     const updatedExpense = await Expense.findByIdAndUpdate(id, req.body, { new: true });
 
     if (!updatedExpense) {
+      
       return res.status(404).json({ message: 'Expense record not found' });
     }
 
